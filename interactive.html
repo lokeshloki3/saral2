@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Page</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #ee9d9d;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .input-container label {
+            margin-right: 8px;
+        }
+
+        .generateButton {
+            margin-top: 20px;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        #greetingMessage {
+            font-size: 20px;
+            font-weight: bold;
+            color: green;
+            margin-top: 20px;
+            text-align: center;
+
+        }
+
+        @keyframes greeting-animation {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .greeting-animation {
+            animation: greeting-animation 1s ease-in-out;
+        }
+
+        .generateButton:hover {
+            background-color: rgb(93, 178, 197);
+        }
+
+        #errorMessage {
+            font-size: 20px;
+            color: green;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="header">Welcome to the Interactive Page</h1>
+
+    <div class="content">
+        <div class="input-container">
+            <label for="nameInput">Name :</label>
+            <input type="text" id="nameInput" placeholder="Enter your name">
+        </div>
+
+        <button class="generateButton">Greet Me</button>
+    </div>
+    <div id="greetingMessage"></div>
+
+    <div id="errorMessage"></div>
+
+    <script>
+        const generateButton = document.querySelector('.generateButton');
+        const greetingMessage = document.getElementById('greetingMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        errorMessage.style.display = 'none';
+        greetingMessage.style.display = 'none';
+
+        generateButton.addEventListener("click", () => {
+            const userName = document.getElementById('nameInput').value.trim();
+            if (userName === "") {
+                errorMessage.style.display = 'block';
+                greetingMessage.style.display = 'none';
+                errorMessage.innerText = "Please enter your name for greeting message.";
+            } else {
+                errorMessage.style.display = 'none';
+                greetingMessage.innerHTML = "Hello, " + userName + "! Hope you have a wonderful day!";
+                greetingMessage.style.display = 'block';
+                greetingMessage.classList.remove('greeting-animation');
+
+                setTimeout(() => {
+                    greetingMessage.classList.add('greeting-animation');
+                }, 0);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
